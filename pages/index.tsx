@@ -1,7 +1,11 @@
-import { data } from '@/data';
 import { GetStaticProps } from 'next';
 import Group from '@/components/Group';
 import prisma from '../lib/prisma';
+import { getGroups } from '@/lib/utils';
+
+type HomeProps = {
+  topics: string;
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const topics = await prisma.topic.findMany({
@@ -19,23 +23,26 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   return {
-    props: { topics: JSON.stringify(topics) },
+    props: {
+      topics: JSON.stringify(
+        topics.map((topic) => ({
+          ...topic,
+          image: topic.snaps[0].image,
+        }))
+      ),
+    },
   };
-};
-
-type HomeProps = {
-  topics: string;
 };
 
 const Home: React.FC<HomeProps> = ({ topics }) => {
   const groups: any[] = getGroups(JSON.parse(topics));
   return (
     <div className='flex flex-wrap -m-1 md:-m-2'>
-      {groups.map((data, index) => (
+      {groups.map((group, index) => (
         <Group
-          key={data[0].snaps[0].image}
-          groupId={data[0].snaps[0].image}
-          data={data}
+          key={group[0].image}
+          groupId={group[0].image}
+          data={group}
           reversed={index % 2 != 0}
         />
       ))}
@@ -44,12 +51,3 @@ const Home: React.FC<HomeProps> = ({ topics }) => {
 };
 
 export default Home;
-
-function getGroups(data: any[]) {
-  const groups: any[] = [];
-  for (let i = 0; i < data.length; i += 3) {
-    const last_index = i + 3 >= data.length ? data.length : i + 3;
-    groups.push(data.slice(i, last_index));
-  }
-  return groups;
-}

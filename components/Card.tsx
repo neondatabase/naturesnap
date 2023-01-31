@@ -4,12 +4,12 @@ type CardProps = {
   cardId: string;
   name: string;
   users: any[];
-  snaps: any[];
+  image: string;
 };
 
-const Card: React.FC<CardProps> = ({ cardId, name, users, snaps }) => {
+const Card: React.FC<CardProps> = ({ cardId, name, users, image }) => {
   const isGrayscale = users
-    ? users && users.map((u) => u.user.id).includes(userId)
+    ? users && !users.map((u) => u.user.id).includes(userId)
     : false;
   const usersToDisplay = users?.slice(0, 3);
   const usersLeft =
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ cardId, name, users, snaps }) => {
       <img
         alt='gallery'
         className='block object-cover object-center w-full h-full rounded-lg'
-        src={snaps[0].image}
+        src={image}
         width={500}
         height={500}
       />
@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({ cardId, name, users, snaps }) => {
               <img
                 key={`${cardId}-${user.id}`}
                 src={`/${user.avatar}`}
-                className='w-6 h-6 rounded-full dark:border-gray-800'
+                className='w-8 h-8 rounded-full dark:border-gray-800'
                 alt=''
               />
             ))}
