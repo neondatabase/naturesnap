@@ -1,38 +1,110 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# JSWorld demo
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the `main` branch of the repo, move to the directory and run the following command:
+
+```bash
+npm install
+```
+
+2. Creata Neon project along with two databases `neondb` and `shadow`, then add the `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
+
+```
+DATABASE_URL=postgres://raouf:k5Fu2zKVlHia@ep-misty-scene-504197.us-east-2.aws.neon.tech/neondb?sslmode=require&connect_timeout=0
+SHADOW_DATABASE_URL=postgres://raouf:k5Fu2zKVlHia@ep-misty-scene-504197.us-east-2.aws.neon.tech/shadow?sslmode=require
+```
+
+3. Run the following command to migrate the schema:
+
+```bash
+npx prisma migrate dev
+```
+
+4. Populate the database using the SQL queries in the `/sql/init.sql` file:
+
+   ```sql
+   INSERT INTO users ("username", "avatar") VALUES ('anna@example.com', 'me.png');
+   INSERT INTO users ("username", "avatar") VALUES ('joe@example.com', 'user1.jpeg');
+   ...
+   ```
+
+5. Run the following command to start the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<img width="1786" alt="Screenshot 2023-02-01 at 15 10 26" src="https://user-images.githubusercontent.com/13738772/216066086-742cbc40-52d8-4ca8-b052-2894dd2c7b90.png">
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Make Schema changes
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Create a new git branch `dev` using the following command:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+git checkout -b dev
+```
 
-## Learn More
+2. Create a Neon branch from the `main` branch and copy the new `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
 
-To learn more about Next.js, take a look at the following resources:
+3. In the `schema.prisma`, uncomment lines 20, 40 and from 44-51:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+model User {
+  id      Int    @id @default(autoincrement())
+  username String @unique
+  avatar String
+  snaps   Snap[]
+  // topics  UserTopics[]
+  @@map("users")
+}
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+...
+model Topic {
+  id    Int    @id @default(autoincrement())
+  name  String
+  snaps Snap[]
+  // users UserTopics[]
+  @@map("topics")
+}
 
-## Deploy on Vercel
+// model UserTopics {
+//   id      Int    @id @default(autoincrement())
+//   user    User @relation(fields: [userId], references: [id])
+//   userId  Int
+//   topic   Topic @relation(fields: [topicId], references: [id])
+//   topicId Int
+//   @@map("user_topics")
+// }
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Run prisma migrate command and follow the instructions:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+npx prisma migrate dev
+```
+
+5. Run the follow SQL query in the SQL Editor to populate the `user_topics` table with data:
+
+```
+INSERT INTO user_topics ("userId", "topicId")
+SELECT "authorId", "topicId"
+FROM snaps
+WHERE NOT EXISTS (
+  SELECT *
+  FROM user_topics
+  WHERE user_topics."userId" = snaps."authorId"
+    AND user_topics."topicId" = snaps."topicId"
+)
+```
+
+6. Run the app using the following command:
+
+```bash
+npm run dev
+```
+
+7. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="1786" alt="Screenshot 2023-02-01 at 15 10 33" src="https://user-images.githubusercontent.com/13738772/216066141-73dd7de9-c0b9-4c1c-9b51-9ea7d49131ee.png">

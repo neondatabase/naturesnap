@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import SnapGroup from '@/components/SnapGroup';
-import { prisma } from '../lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { groupSnaps } from '@/lib/utils';
 import { Snap } from '@/types';
 
