@@ -1,15 +1,11 @@
+import { Snap } from '@/types';
+import Link from 'next/link';
+
 const userId = 4;
 
-type CardProps = {
-  cardId: string;
-  name: string;
-  users: any[];
-  image: string;
-};
-
-const Card: React.FC<CardProps> = ({ cardId, name, users, image }) => {
+const SnapCard: React.FC<Snap> = ({ name, users, image }) => {
   const isGrayscale = users
-    ? users && !users.map((u) => u.user.id).includes(userId)
+    ? users && !users.map((u) => u.id).includes(userId)
     : false;
   const usersToDisplay = users?.slice(0, 3);
   const usersLeft =
@@ -34,21 +30,21 @@ const Card: React.FC<CardProps> = ({ cardId, name, users, image }) => {
       {users && (
         <div className='absolute bottom-2 right-2'>
           <div className='flex -space-x-2'>
-            {usersToDisplay?.map(({ user }) => (
+            {usersToDisplay?.map((user) => (
               <img
-                key={`${cardId}-${user.id}`}
+                key={`user-${user.id}`}
                 src={`/${user.avatar}`}
                 className='w-8 h-8 rounded-full dark:border-gray-800'
                 alt=''
               />
             ))}
             {usersLeft > 0 && (
-              <a
+              <Link
                 className='flex items-center justify-center w-6 h-6 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600 dark:border-gray-800'
                 href='#'
               >
-                +5
-              </a>
+                +{usersLeft}
+              </Link>
             )}
           </div>
         </div>
@@ -57,4 +53,4 @@ const Card: React.FC<CardProps> = ({ cardId, name, users, image }) => {
   );
 };
 
-export default Card;
+export default SnapCard;

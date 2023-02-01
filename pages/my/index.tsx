@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import Group from '@/components/Group';
+import SnapGroup from '@/components/SnapGroup';
 import { getGroups } from '@/lib/utils';
 
 type MyProps = {
@@ -25,7 +25,7 @@ const My: React.FC<MyProps> = ({ snaps }) => {
   return (
     <div className='flex flex-wrap -m-1 md:-m-2'>
       {groups.map((group, index) => (
-        <Group
+        <SnapGroup
           key={`group-${index}`}
           groupId={`group-${index}`}
           data={group}

@@ -1,10 +1,11 @@
 import { GetStaticProps } from 'next';
-import Group from '@/components/Group';
+import SnapGroup from '@/components/SnapGroup';
 import prisma from '../lib/prisma';
-import { getGroups } from '@/lib/utils';
+import { groupSnaps } from '@/lib/utils';
+import { Snap, Topic } from '@/types';
 
 type HomeProps = {
-  topics: string;
+  snaps: string;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -22,27 +23,29 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   });
 
+  const snaps = topics.map((topic) => ({
+    id: topic.id,
+    name: topic.name,
+    image: topic.snaps[0].image,
+    authorId: topic.snaps[0].authorId,
+    topicId: topic.id,
+  }));
+
   return {
     props: {
-      topics: JSON.stringify(
-        topics.map((topic) => ({
-          ...topic,
-          image: topic.snaps[0].image,
-        }))
-      ),
+      snaps: JSON.stringify(snaps),
     },
   };
 };
 
-const Home: React.FC<HomeProps> = ({ topics }) => {
-  const groups: any[] = getGroups(JSON.parse(topics));
+const Home: React.FC<HomeProps> = ({ snaps }) => {
+  const snapGroups: Array<Snap[]> = groupSnaps(JSON.parse(snaps));
   return (
     <div className='flex flex-wrap -m-1 md:-m-2'>
-      {groups.map((group, index) => (
-        <Group
-          key={group[0].image}
-          groupId={group[0].image}
-          data={group}
+      {snapGroups.map((snaps, index) => (
+        <SnapGroup
+          key={`group-${index}`}
+          snaps={snaps}
           reversed={index % 2 != 0}
         />
       ))}

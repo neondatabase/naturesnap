@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Breadcrumb = () => {
@@ -10,12 +11,11 @@ const Breadcrumb = () => {
       href: `/${array.slice(0, index + 1).join('/')}`,
     }));
 
-  console.log(crumbs);
   return (
     <nav className='flex' aria-label='Breadcrumb'>
       <ol className='inline-flex items-center space-x-1 md:space-x-3'>
         <li className='inline-flex items-center'>
-          <a
+          <Link
             href='/'
             className='inline-flex items-center text-sm font-medium text-teal-600 hover:text-teal-600'
           >
@@ -29,7 +29,7 @@ const Breadcrumb = () => {
               <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z'></path>
             </svg>
             Home
-          </a>
+          </Link>
         </li>
         <li>
           {crumbs.map(({ name, href }) => (
@@ -47,12 +47,12 @@ const Breadcrumb = () => {
                   clipRule='evenodd'
                 ></path>
               </svg>
-              <a
+              <Link
                 href={href}
                 className='ml-1 text-sm font-medium text-teal-600 hover:text-teal-600'
               >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
-              </a>
+              </Link>
             </div>
           ))}
         </li>
