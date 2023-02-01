@@ -34,7 +34,7 @@ jobs:
           npx prisma migrate dev
         env:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url}}/neondb
-          SHADOW_DATABASE_URL: ${{ steps.create-branch.outputs.db_url}}/shadowdb
+          SHADOW_DATABASE_URL: ${{ steps.create-branch.outputs.db_url}}/shadow
       - name: Deploy to Vercel
         id: deploy
         run: |
