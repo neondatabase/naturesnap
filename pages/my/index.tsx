@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import SnapGroup from '@/components/SnapGroup';
-import { getGroups } from '@/lib/utils';
+import { groupSnaps } from '@/lib/utils';
+import { prisma } from '@/lib/prisma';
 
 type MyProps = {
   snaps: string;
@@ -21,14 +22,13 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const My: React.FC<MyProps> = ({ snaps }) => {
-  const groups: any[] = getGroups(JSON.parse(snaps));
+  const snapGroups: any[] = groupSnaps(JSON.parse(snaps));
   return (
     <div className='flex flex-wrap -m-1 md:-m-2'>
-      {groups.map((group, index) => (
+      {snapGroups.map((snaps, index) => (
         <SnapGroup
           key={`group-${index}`}
-          groupId={`group-${index}`}
-          data={group}
+          snaps={snaps}
           reversed={index % 2 != 0}
         />
       ))}

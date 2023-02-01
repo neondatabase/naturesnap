@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next';
 import SnapGroup from '@/components/SnapGroup';
-import prisma from '../lib/prisma';
+import { prisma } from '../lib/prisma';
 import { groupSnaps } from '@/lib/utils';
-import { Snap, Topic } from '@/types';
+import { Snap } from '@/types';
 
 type HomeProps = {
   snaps: string;
@@ -23,14 +23,17 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   });
 
-  const snaps = topics.map((topic) => ({
-    id: topic.id,
-    name: topic.name,
-    image: topic.snaps[0].image,
-    authorId: topic.snaps[0].authorId,
-    topicId: topic.id,
-    users: topic.users.map((u) => u.user),
-  }));
+  const snaps = topics.map(
+    (topic) =>
+      ({
+        id: topic.id,
+        name: topic.name,
+        image: topic.snaps[0].image,
+        authorId: topic.snaps[0].authorId,
+        topicId: topic.id,
+        users: topic.users.map((u) => u.user),
+      } as Snap)
+  );
 
   return {
     props: {
