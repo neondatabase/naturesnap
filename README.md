@@ -37,6 +37,8 @@ npm run dev
 
 6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+<img width="1786" alt="Screenshot 2023-02-01 at 15 10 26" src="https://user-images.githubusercontent.com/13738772/216066086-742cbc40-52d8-4ca8-b052-2894dd2c7b90.png">
+
 ## Make Schema changes
 
 1. Create a new git branch `dev` using the following command:
@@ -105,3 +107,4 @@ npm run dev
 ```
 
 7. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="1786" alt="Screenshot 2023-02-01 at 15 10 33" src="https://user-images.githubusercontent.com/13738772/216066141-73dd7de9-c0b9-4c1c-9b51-9ea7d49131ee.png">
