@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma db push && next build",
+    "build": "next build && npx prisma db push",
     "start": "next start",
     "lint": "next lint"
   },
