@@ -49,7 +49,7 @@ git checkout -b dev
 
 2. Create a Neon branch from the `main` branch and copy the new `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
 
-3. In the `schema.prisma`, uncomment lines 20, 40 and from 44-51:
+3.1 In the `schema.prisma`, uncomment lines 20, 40 and from 44-51:
 
 ```javascript
 model User {
@@ -78,6 +78,18 @@ model Topic {
 //   topicId Int
 //   @@map("user_topics")
 // }
+```
+
+3.2 In the `pages/intex.tsx`, uncomment line 22 and 32:
+
+```
+      // users: { select: { user: true }, distinct: ['userId'] },
+```
+
+and
+
+```
+    // users: topic.users.map((u) => u.user),
 ```
 
 4. Run prisma migrate command and follow the instructions:
