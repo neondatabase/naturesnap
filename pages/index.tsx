@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import SnapGroup from '@/components/SnapGroup';
 import { prisma } from '@/lib/prisma';
 import { groupSnaps } from '@/lib/utils';
@@ -8,7 +8,7 @@ type HomeProps = {
   snaps: string;
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const topics = await prisma.topic.findMany({
     where: {
       snaps: {
@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: React.FC<HomeProps> = ({ snaps }) => {
   const snapGroups: Array<Snap[]> = groupSnaps(JSON.parse(snaps));
   return (
-    <div className='flex flex-wrap -m-1 md:-m-2'>
+    <div className="flex flex-wrap -m-1 md:-m-2">
       {snapGroups.map((snaps, index) => (
         <SnapGroup
           key={`group-${index}`}
