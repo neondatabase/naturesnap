@@ -98,7 +98,7 @@ and
 npx prisma migrate dev --name add_user_topics
 ```
 
-5. Run the follow SQL query in the SQL Editor to populate the `user_topics` table with data:
+5. Add the following SQL query to the generated migration to populate the `user_topics` table with data:
 
 ```
 INSERT INTO user_topics ("userId", "topicId")
