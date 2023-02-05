@@ -80,7 +80,7 @@ model Topic {
 // }
 ```
 
-3.2 In the `pages/intex.tsx`, uncomment line 22 and 32:
+3.2 In the `pages/index.tsx`, uncomment line 22 and 32:
 
 ```
       // users: { select: { user: true }, distinct: ['userId'] },
