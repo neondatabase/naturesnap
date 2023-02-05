@@ -8,11 +8,11 @@
 npm install
 ```
 
-2. Create Neon project along with two databases `neondb` and `shadow`, then add the `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
+2. Create Neon project along with  a `naturesnap` role and two databases: `naturesnap` and `shadow`. Then add the `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
 
 ```
-DATABASE_URL=postgres://raouf:******@ep-misty-scene-504197.us-east-2.aws.neon.tech/neondb?sslmode=require&connect_timeout=0
-SHADOW_DATABASE_URL=postgres://raouf:******@ep-misty-scene-504197.us-east-2.aws.neon.tech/shadow?sslmode=require
+DATABASE_URL=postgres://naturesnap:******@ep-....neon.tech/naturesnap?sslmode=require&connect_timeout=0
+SHADOW_DATABASE_URL=postgres://naturesnap:******@ep-....neon.tech/shadow?sslmode=require
 ```
 
 3. Run the following command to migrate the schema:
