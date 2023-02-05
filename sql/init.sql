@@ -18,9 +18,9 @@ INSERT INTO topics ("name") VALUES ('glaciers');
 INSERT INTO topics ("name") VALUES ('flowers');
 INSERT INTO topics ("name") VALUES ('beach');
 INSERT INTO topics ("name") VALUES ('birds');
-INSERT INTO topics ("name") VALUES ( 'lakes');
-INSERT INTO topics ("name") VALUES ( 'cats');
-INSERT INTO topics ("name") VALUES ( 'elephants');
+INSERT INTO topics ("name") VALUES ('lakes');
+INSERT INTO topics ("name") VALUES ('cats');
+INSERT INTO topics ("name") VALUES ('elephants');
 
 -- INSERT SNAPS DATA
 
