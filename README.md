@@ -44,7 +44,7 @@ npm run dev
 1. Create a new git branch `dev` using the following command:
 
 ```bash
-git checkout -b dev
+git checkout -b add_user_topics
 ```
 
 2. Create a Neon branch from the `main` branch and copy the new `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
