@@ -11,8 +11,8 @@ npm install
 2. Create Neon project along with two databases `neondb` and `shadow`, then add the `DATABASE_URL` and `SHADOW_DATABASE_URL` to the `.env` file:
 
 ```
-DATABASE_URL=postgres://raouf:k5Fu2zKVlHia@ep-misty-scene-504197.us-east-2.aws.neon.tech/neondb?sslmode=require&connect_timeout=0
-SHADOW_DATABASE_URL=postgres://raouf:k5Fu2zKVlHia@ep-misty-scene-504197.us-east-2.aws.neon.tech/shadow?sslmode=require
+DATABASE_URL=postgres://raouf:******@ep-misty-scene-504197.us-east-2.aws.neon.tech/neondb?sslmode=require&connect_timeout=0
+SHADOW_DATABASE_URL=postgres://raouf:******@ep-misty-scene-504197.us-east-2.aws.neon.tech/shadow?sslmode=require
 ```
 
 3. Run the following command to migrate the schema:
