@@ -95,7 +95,7 @@ and
 4. Run prisma migrate command and follow the instructions:
 
 ```
-npx prisma migrate dev
+npx prisma migrate dev --name add_user_topics
 ```
 
 5. Run the follow SQL query in the SQL Editor to populate the `user_topics` table with data:
@@ -118,5 +118,19 @@ WHERE NOT EXISTS (
 npm run dev
 ```
 
-7. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+7. Open [http://localhost:3000](http://localhost:3000) with your browser to check the result.
 <img width="1786" alt="Screenshot 2023-02-01 at 15 10 33" src="https://user-images.githubusercontent.com/13738772/216066141-73dd7de9-c0b9-4c1c-9b51-9ea7d49131ee.png">
+
+8. Commit the changes
+
+```
+ git add pages/index.tsx && git add prisma/* && git commit -m 'add user topics' 
+```
+
+9.  Push changes to a new branch on github
+
+```
+git push --set-upstream origin add_user_topics
+```
+
+10.  Have fun
