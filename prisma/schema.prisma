@@ -17,7 +17,7 @@ model User {
   username String @unique
   avatar String
   snaps   Snap[]
-  // topics  UserTopics[]
+  topics  UserTopics[]
   @@map("users")
 }
 
@@ -37,16 +37,16 @@ model Topic {
   id    Int    @id @default(autoincrement())
   name  String
   snaps Snap[]
-  // users UserTopics[]
+  users UserTopics[]
   @@map("topics")
 }
 
-// model UserTopics {
-//   id      Int    @id @default(autoincrement())
-//   user    User @relation(fields: [userId], references: [id])
-//   userId  Int
-//   topic   Topic @relation(fields: [topicId], references: [id])
-//   topicId Int
-//   @@map("user_topics")
-// }
+model UserTopics {
+  id      Int    @id @default(autoincrement())
+  user    User @relation(fields: [userId], references: [id])
+  userId  Int
+  topic   Topic @relation(fields: [topicId], references: [id])
+  topicId Int
+  @@map("user_topics")
+}
 
